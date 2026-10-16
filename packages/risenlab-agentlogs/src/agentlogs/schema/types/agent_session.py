@@ -63,7 +63,7 @@ class AgentSession(TypedDict):
             },
         ),
         Description(
-            "Pull request created by this session. "
+            "Pull request worked on in this session. "
             "Often also listed on the parent task "
             "([pull request artifacts](./agent_task.md)). "
             "May be missing when the task still lists the pull request."

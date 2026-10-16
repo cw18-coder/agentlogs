@@ -25,7 +25,7 @@ Fields and values on the Copilot API differ slightly from GitHub REST `GET /agen
 | <code>repository</code> | [Repository](repository.md) | <code>agent_tasks</code> |  |
 | <code>sessions</code> (list) | [Agent Session](agent_session.md) | <code>task</code> |  |
 | <code>creator</code> | [User](user.md) | <code>tasks</code> |  |
-| <code>pull_request_artifacts</code> (list) | [Pull Request](pull_request.md) | <code>created_by_tasks</code> | Pull requests created by this task (REST `artifacts[]` of type `pull`). May include pull requests that are not on any listed session, possibly because a session was deleted (see [Agent Session](./agent_session.md) `pull_request_artifact`).  |
+| <code>pull_request_artifacts</code> (list) | [Pull Request](pull_request.md) | <code>created_by_tasks</code> | Pull requests worked on in this task (REST `artifacts[]` of type `pull`). May include pull requests that are not on any listed session, possibly because a session was deleted (see [Agent Session](./agent_session.md) `pull_request_artifact`).  |
 
 ## Fields
 

@@ -81,7 +81,7 @@ class AgentTask(TypedDict):
         Relation("created_by_tasks"),
         GitHubField("artifacts[]", leaves={"id": "data.id", "graphql_id": "data.global_id"}),
         Description(
-            "Pull requests created by this task (REST `artifacts[]` of type `pull`). "
+            "Pull requests worked on in this task (REST `artifacts[]` of type `pull`). "
             "May include pull requests that are not on any listed session, "
             "possibly because a session was deleted "
             "(see [Agent Session](./agent_session.md) `pull_request_artifact`). "

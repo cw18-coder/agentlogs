@@ -128,16 +128,22 @@ class PullRequest(TypedDict):
         list[AgentTaskReference],
         Relation("pull_request_artifacts"),
         Description(
-            "Tasks that created this pull request as an artifact "
-            "(see [Agent Task](./agent_task.md) `pull_request_artifacts`)."
+            "Tasks that worked on this pull request as an artifact "
+            "(see [Agent Task](./agent_task.md) `pull_request_artifacts`). "
+            "The field name is inaccurate: it does not mean the agent created this pull request. "
+            "The agent may have opened it, or only reviewed it, commented on it, "
+            "or otherwise worked on it."
         ),
     ]
     created_by_sessions: Annotated[
         list[AgentSessionReference],
         Relation("pull_request_artifact"),
         Description(
-            "Sessions that created this pull request "
-            "(see [Agent Session](./agent_session.md) `pull_request_artifact`)."
+            "Sessions that worked on this pull request as an artifact "
+            "(see [Agent Session](./agent_session.md) `pull_request_artifact`). "
+            "The field name is inaccurate: it does not mean the agent created this pull request. "
+            "The agent may have opened it, or only reviewed it, commented on it, "
+            "or otherwise worked on it."
         ),
     ]
     user: Annotated[

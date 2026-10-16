@@ -23,7 +23,7 @@ Fields and values differ slightly from GitHub REST `GET /agents/tasks/{id}` ([do
 | --- | --- | --- | --- |
 | <code>task</code> | [Agent Task](agent_task.md) | <code>sessions</code> |  |
 | <code>user</code> | [User](user.md) | <code>sessions</code> |  |
-| <code>pull_request_artifact</code> (optional) | [Pull Request](pull_request.md) | <code>created_by_sessions</code> | Pull request created by this session. Often also listed on the parent task ([pull request artifacts](./agent_task.md)). May be missing when the task still lists the pull request. |
+| <code>pull_request_artifact</code> (optional) | [Pull Request](pull_request.md) | <code>created_by_sessions</code> | Pull request worked on in this session. Often also listed on the parent task ([pull request artifacts](./agent_task.md)). May be missing when the task still lists the pull request. |
 | <code>workflow_run</code> (optional) | [Workflow Run](workflow_run.md) | <code>session</code> | Actions run that executed this session. |
 
 ## Fields

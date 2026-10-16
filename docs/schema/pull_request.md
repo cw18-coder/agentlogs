@@ -26,8 +26,8 @@ Only successful GitHub API responses are stored. Other tables may contain refere
 | Property | Related table | Related field | Description |
 | --- | --- | --- | --- |
 | <code>repository</code> | [Repository](repository.md) |  |  |
-| <code>created_by_tasks</code> (list) | [Agent Task](agent_task.md) | <code>pull_request_artifacts</code> | Tasks that created this pull request as an artifact (see [Agent Task](./agent_task.md) `pull_request_artifacts`). |
-| <code>created_by_sessions</code> (list) | [Agent Session](agent_session.md) | <code>pull_request_artifact</code> | Sessions that created this pull request (see [Agent Session](./agent_session.md) `pull_request_artifact`). |
+| <code>created_by_tasks</code> (list) | [Agent Task](agent_task.md) | <code>pull_request_artifacts</code> | Tasks that worked on this pull request as an artifact (see [Agent Task](./agent_task.md) `pull_request_artifacts`). The field name is inaccurate: it does not mean the agent created this pull request. The agent may have opened it, or only reviewed it, commented on it, or otherwise worked on it. |
+| <code>created_by_sessions</code> (list) | [Agent Session](agent_session.md) | <code>pull_request_artifact</code> | Sessions that worked on this pull request as an artifact (see [Agent Session](./agent_session.md) `pull_request_artifact`). The field name is inaccurate: it does not mean the agent created this pull request. The agent may have opened it, or only reviewed it, commented on it, or otherwise worked on it. |
 | <code>user</code> (optional) | [User](user.md) | <code>pull_requests</code> |  |
 | <code>assignees</code> (list) | [User](user.md) | <code>assigned_pull_requests</code> |  |
 | <code>requested_reviewers</code> (list) | [User](user.md) | <code>review_requested_pull_requests</code> | Users only. Review requests to teams are not collected: GitHub GraphQL `Team` fields on review requests require org scopes this collection does not use. Only the first 20 are fetched. |
