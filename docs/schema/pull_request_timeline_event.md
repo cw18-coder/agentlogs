@@ -6,7 +6,7 @@
 > [Changelog](../../CHANGELOG.md#schema-v1_0)
 
 <table>
-<tr><th align="left">Description</th><td>One event from a collected pull request timeline.</td></tr>
+<tr><th align="left">Description</th><td>One event from a pull request timeline.</td></tr>
 <tr><th align="left">Parquet table</th><td><code>pull_request_timelines</code></td></tr>
 <tr><th align="left">Schema definition</th><td><a href="../../packages/risenlab-agentlogs/src/agentlogs/schema/types/pull_request.py#L32"><code>agentlogs/schema/types/pull_request.py</code></a></td></tr>
 </table>

@@ -1,0 +1,10 @@
+# The Copilot API cannot be accessed with a personal access token. Instead, download the GitHub CLI,
+# Authenticate with your GitHub account, and run `gh auth token` to get the token for the Copilot API.
+[[copilot]]
+name = "GitHub Copilot token"
+token = "gho_xxx"
+
+# Classic GitHub tokens
+[[github]]
+name = "GitHub token (classic) # 1"
+token = "ghp_xx"

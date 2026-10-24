@@ -61,7 +61,7 @@ class BranchArtifactData(TypedDict):
     reference=AgentTaskReference,
 )
 class AgentTask(TypedDict):
-    """Copilot cloud agent task."""
+    """Agent assignment on a repository."""
 
     id: Annotated[str, GitHubField("id")]
 

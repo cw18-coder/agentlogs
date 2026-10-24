@@ -1,0 +1,2 @@
+-e packages/risenlab-agentlogs
+-e packages/risenlab-agentlogs-collector

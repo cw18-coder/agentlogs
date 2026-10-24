@@ -17,7 +17,7 @@ from .references import AgentSessionReference
     explanation="The response is a [Server-Sent Events](https://html.spec.whatwg.org/multipage/server-sent-events.html) stream (`Accept: text/event-stream`); each event's `data` field is one log entry.",
 )
 class AgentSessionLogEntry(TypedDict):
-    """Copilot cloud agent session log event."""
+    """One entry in the log of a session."""
 
     session: Annotated[
         AgentSessionReference,

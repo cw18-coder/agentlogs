@@ -1,9 +1,22 @@
 # Changelog
 
+- [v1.0.1](#v1_0_1)
 - [v1.0.0](#v1_0_0)
     - [schema v1.0](#schema-v1_0)
 - [v0.2.0](#v0_2_0)
     - [schema v0.2](#schema-v0_2)
+
+<a id="v1_0_1"></a>
+
+## [v1.0.1](https://github.com/risenlab/agentlogs/tree/v1.0.1)
+
+- Published the collection pipeline:
+    - Collector package `risenlab-agentlogs-collector`, covering API clients, the job queue and collection state, collection steps, and Parquet export.
+    - Scripts in `scripts/collect/` that download the seed list, seed the job queue, run collection, and export the dataset.
+    - `api_tokens_example.toml` as a template for the GitHub and Copilot tokens.
+    - A README section on setting up and running collection, and on how the pipeline works.
+- Updated the paper title in the citation.
+- Fixed the cutoff date of dataset release `1.0-20261008` in the release table (30 September, 2026).
 
 <a id="v1_0_0"></a>
 

@@ -35,7 +35,7 @@ class AgentSessionEvent(TypedDict):
     reference=(AgentSessionReference, AgentTaskSessionReference),
 )
 class AgentSession(TypedDict):
-    """Copilot cloud agent session."""
+    """Execution of an agent on a task."""
 
     id: Annotated[str, GitHubField("id")]
     session_index: Annotated[
@@ -73,7 +73,7 @@ class AgentSession(TypedDict):
         WorkflowRunReference | None,
         Relation("session"),
         GitHubField("", leaves={"id": "workflow_run_id"}),
-        Description("Actions run that executed this session."),
+        Description("GitHub Actions workflow run that executed this session."),
     ]
     base: Annotated[
         BranchReference | None,

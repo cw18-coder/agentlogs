@@ -6,7 +6,7 @@
 > [Changelog](../../CHANGELOG.md#schema-v1_0)
 
 <table>
-<tr><th align="left">Description</th><td>Copilot cloud agent session.</td></tr>
+<tr><th align="left">Description</th><td>Execution of an agent on a task.</td></tr>
 <tr><th align="left">Parquet table</th><td><code>agent_sessions</code></td></tr>
 <tr><th align="left">Schema definition</th><td><a href="../../packages/risenlab-agentlogs/src/agentlogs/schema/types/agent_session.py#L26"><code>agentlogs/schema/types/agent_session.py</code></a></td></tr>
 </table>
@@ -24,7 +24,7 @@ Fields and values differ slightly from GitHub REST `GET /agents/tasks/{id}` ([do
 | <code>task</code> | [Agent Task](agent_task.md) | <code>sessions</code> |  |
 | <code>user</code> | [User](user.md) | <code>sessions</code> |  |
 | <code>pull_request_artifact</code> (optional) | [Pull Request](pull_request.md) | <code>created_by_sessions</code> | Pull request worked on in this session. Often also listed on the parent task ([pull request artifacts](./agent_task.md)). May be missing when the task still lists the pull request. |
-| <code>workflow_run</code> (optional) | [Workflow Run](workflow_run.md) | <code>session</code> | Actions run that executed this session. |
+| <code>workflow_run</code> (optional) | [Workflow Run](workflow_run.md) | <code>session</code> | GitHub Actions workflow run that executed this session. |
 
 ## Fields
 

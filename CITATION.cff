@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: If you use AgentLogs in an academic publication, please cite the preprint below.
-title: "AgentLogs: A Dataset for Opening the Black Box of GitHub's Cloud Agent"
+title: "AgentLogs: A Dataset for Opening the Black Box of Cloud Agents on GitHub"
 type: dataset
 authors:
   - family-names: Richards
@@ -32,7 +32,7 @@ preferred-citation:
       given-names: Yutaro
     - family-names: Wessel
       given-names: Mairieli
-  title: "AgentLogs: A Dataset for Opening the Black Box of GitHub's Cloud Agent"
+  title: "AgentLogs: A Dataset for Opening the Black Box of Cloud Agents on GitHub"
   year: 2026
   month: 8
   doi: 10.48550/arXiv.2608.29204

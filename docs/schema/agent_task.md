@@ -6,7 +6,7 @@
 > [Changelog](../../CHANGELOG.md#schema-v1_0)
 
 <table>
-<tr><th align="left">Description</th><td>Copilot cloud agent task.</td></tr>
+<tr><th align="left">Description</th><td>Agent assignment on a repository.</td></tr>
 <tr><th align="left">Parquet table</th><td><code>agent_tasks</code></td></tr>
 <tr><th align="left">Schema definition</th><td><a href="../../packages/risenlab-agentlogs/src/agentlogs/schema/types/agent_task.py#L44"><code>agentlogs/schema/types/agent_task.py</code></a></td></tr>
 </table>

@@ -1,6 +1,6 @@
 [project]
 name = "risenlab-agentlogs"
-version = "1.0.0"
+version = "1.0.1"
 description = "Schema definitions and utilities for the AgentLogs dataset"
 readme = "README.md"
 license = "MIT"

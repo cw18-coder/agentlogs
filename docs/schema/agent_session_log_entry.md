@@ -6,7 +6,7 @@
 > [Changelog](../../CHANGELOG.md#schema-v1_0)
 
 <table>
-<tr><th align="left">Description</th><td>Copilot cloud agent session log event.</td></tr>
+<tr><th align="left">Description</th><td>One entry in the log of a session.</td></tr>
 <tr><th align="left">Parquet table</th><td><code>agent_session_logs</code></td></tr>
 <tr><th align="left">Schema definition</th><td><a href="../../packages/risenlab-agentlogs/src/agentlogs/schema/types/agent_session_log.py#L9"><code>agentlogs/schema/types/agent_session_log.py</code></a></td></tr>
 </table>

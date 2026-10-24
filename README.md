@@ -9,24 +9,24 @@
 >
 > [Dataset releases](#releases) | [Changelog](CHANGELOG.md)
 
-AgentLogs is a dataset of activity related to the [GitHub agents functionality](https://github.com/features/copilot/agents): repository metadata, agent tasks, sessions, session logs (messages, tool calls, usage details, etc.), and user records. This repository contains schema definitions, example analysis notebooks, and a sample of the dataset.
+AgentLogs is a dataset of activity on [GitHub's cloud agent platform](https://github.com/features/copilot/agents): repository metadata, agent tasks, sessions, session logs (messages, tool calls, usage details, etc.), and user records. This repository contains schema definitions, example analysis notebooks, and a sample of the dataset.
 
 This dataset is described in:
 
-> 📄 Jonan Richards, Kosei Horikawa, Youmei Fan, Yutaro Kashiwa, and Mairieli Wessel (2026), *AgentLogs: A Dataset for Opening the Black Box of GitHub's Cloud Agent*. arXiv: [2608.29204](https://arxiv.org/abs/2608.29204) (preprint).
+> 📄 Jonan Richards, Kosei Horikawa, Youmei Fan, Yutaro Kashiwa, and Mairieli Wessel (2026), *AgentLogs: A Dataset for Opening the Black Box of Cloud Agents on GitHub*. arXiv: [2608.29204](https://arxiv.org/abs/2608.29204) (preprint).
 
 ## Dataset
 
 | | # Records | Size | Table | Content |
 | --- | ---: | ---: | --- | --- |
 | **Repositories**<br><small>−&nbsp;2.18% with agent tasks</small> | 1,861,300<br><small>-&nbsp;40,565</small> | 462.7&nbsp;MB | [`repositories`](docs/schema/repository.md) | Public GitHub repositories with over 10 stars (metadata including name, license, language, stars, forks, timestamps, labels, topics). |
-| **Agent tasks**<br><small>−&nbsp;97.20% with sessions</small> | 363,624<br><small>-&nbsp;353,432</small> | 83.7&nbsp;MB | [`agent_tasks`](docs/schema/agent_task.md) | Agent assignment on a repository (metadata including name, request, state, creator, timestamps, branch/PR identifiers). |
-| **Agent sessions**<br><small>−&nbsp;98.24% with session logs</small> | 635,886<br><small>-&nbsp;624,668</small> | 243.1&nbsp;MB | [`agent_sessions`](docs/schema/agent_session.md) | Agent runs within a task (metadata including model, prompt, outcome, usage, and branch/PR identifier for that session). |
+| **Agent tasks**<br><small>−&nbsp;97.20% with sessions</small> | 363,624<br><small>-&nbsp;353,432</small> | 83.7&nbsp;MB | [`agent_tasks`](docs/schema/agent_task.md) | Agent assignments on a repository (metadata including name, request, state, creator, timestamps, branch/PR identifiers). |
+| **Agent sessions**<br><small>−&nbsp;98.24% with session logs</small> | 635,886<br><small>-&nbsp;624,668</small> | 243.1&nbsp;MB | [`agent_sessions`](docs/schema/agent_session.md) | Executions of an agent on a task (metadata including model, prompt, outcome, usage, workflow run, and branch/PR identifier for that session). |
 | **Log entries**<br><small>−&nbsp;>99.99% parsed</small> | 75,631,136<br><small>-&nbsp;75,630,896</small> | 63.0&nbsp;GB | [`agent_session_logs`](docs/schema/agent_session_log_entry.md) | Session log events (including messages, usage details, tool calls for file edits, git, and GitHub issues, PRs, comments, CI). |
 | **Users**<br><small>−&nbsp;4.40% with tasks or sessions</small> | 857,428<br><small>-&nbsp;37,714</small> | 211.5&nbsp;MB | [`users`](docs/schema/user.md) | Users, organizations, and bots related to the other tables (GitHub id, login slug, and creation date). |
 | **Pull requests**<br><small>−&nbsp;99.82% with timeline events</small> | 317,878<br><small>-&nbsp;317,297</small> | 483.9&nbsp;MB | [`pull_requests`](docs/schema/pull_request.md) | Pull requests worked on in agent tasks and sessions (GitHub id, number, state, and branches). |
-| **Pull request timeline events** | 9,070,939 | 327.4&nbsp;MB | [`pull_request_timelines`](docs/schema/pull_request_timeline_event.md) | Timeline events for collected pull requests (actor, label, commit, and message). |
-| **Workflow runs** | 554,496 | 83.3&nbsp;MB | [`workflow_runs`](docs/schema/workflow_run.md) | GitHub Actions runs that executed agent sessions (status, head commit, and triggering user/bot). |
+| **Pull request timeline events** | 9,070,939 | 327.4&nbsp;MB | [`pull_request_timelines`](docs/schema/pull_request_timeline_event.md) | Timeline events for a pull request (actor, label, commit, and message). |
+| **Workflow runs** | 554,496 | 83.3&nbsp;MB | [`workflow_runs`](docs/schema/workflow_run.md) | GitHub Actions workflow runs that executed an agent session (status, head commit, and triggering user/bot). |
 | **Total** | **89,292,687** | **64.9&nbsp;GB** | | |
 
 See the [schema reference](docs/schema/README.md) for field-level documentation of each table.
@@ -48,7 +48,10 @@ The full dataset is published on [Hugging Face](https://huggingface.co/datasets/
 | Path | Description |
 | --- | --- |
 | [`packages/risenlab-agentlogs/`](packages/risenlab-agentlogs/) | TypedDict schema definitions |
+| [`packages/risenlab-agentlogs-collector/`](packages/risenlab-agentlogs-collector/) | Collection pipeline (seed, collect, export) |
+| [`scripts/collect/`](scripts/collect/) | Seed, collect, and export scripts |
 | [`scripts/analysis/`](scripts/analysis/) | Example notebooks for analyzing the dataset |
+| [`api_tokens_example.toml`](api_tokens_example.toml) | Token file shape; copy to `api_tokens.toml` |
 | [`data/dataset-sample/`](data/dataset-sample/) | Sample of the dataset for demonstration purposes |
 | [`docs/schema/`](docs/schema/) | Field-level schema documentation |
 | [`CHANGELOG.md`](CHANGELOG.md) | Schema and repository changelog |
@@ -69,6 +72,63 @@ Import types in your own code:
 ```python
 from agentlogs.schema import AgentSessionLogEntry, Repository, AgentTask, ...
 ```
+
+## Collecting data
+
+The scripts in [`scripts/collect/`](scripts/collect/) download a seed repository list and fill a job queue. They then collect from the GitHub and Copilot APIs and export the eight Parquet tables.
+
+### Setup
+
+```bash
+pip install -r scripts/collect/requirements.txt
+```
+
+Copy [`api_tokens_example.toml`](api_tokens_example.toml) to `api_tokens.toml` and fill in your tokens.
+
+- **GitHub:** classic personal access tokens
+- **Copilot:** use `gh auth token` after authenticating with the GitHub CLI (personal access tokens do not work for the Copilot API)
+
+### Running
+
+```bash
+# Download the seed repository list (from GitHub Search; see DATA_LICENSE)
+python scripts/collect/download_seed.py
+
+# Seed the job queue (creates data/collect/)
+python scripts/collect/seed.py --init
+
+# Run data collection (GitHub API + Copilot API, fully resumable)
+python scripts/collect/run.py
+
+# Export collected data to Parquet (creates data/dataset/)
+python scripts/collect/export.py
+```
+
+### How it works
+
+Work is a SQLite job queue. `seed.py` and `run.py` call into the collector package:
+
+- [`state/`](packages/risenlab-agentlogs-collector/src/agentlogs/collector/state/): stores the job queue in a SQLite database and resource bodies as compressed files.
+- [`api/`](packages/risenlab-agentlogs-collector/src/agentlogs/collector/api/): fetches from GitHub and Copilot, respects rate limits, and rotates through multiple tokens.
+- [`resources/`](packages/risenlab-agentlogs-collector/src/agentlogs/collector/resources/): types for the GitHub and Copilot objects returned by the API and saved in the collection state, until transformed to the final export format.
+- [`runtime/`](packages/risenlab-agentlogs-collector/src/agentlogs/collector/runtime/): schedules workers and runs the GraphQL/REST lookups.
+- [`export/`](packages/risenlab-agentlogs-collector/src/agentlogs/collector/export/): transforms collected resources into the eight Parquet tables.
+- [`pipeline.py`](packages/risenlab-agentlogs-collector/src/agentlogs/collector/pipeline.py): starts the seed and collect workers.
+
+Each job type lives in [`steps/`](packages/risenlab-agentlogs-collector/src/agentlogs/collector/steps/): one file (`collect_task.py`, and so on) with the job, the code that runs it, and the later jobs it creates. They run in this order:
+
+1. `seed_repositories`: loads the CSV and queues a listing job per repository.
+2. `collect_repository_tasks`: lists agent tasks on GitHub REST and queues a `collect_task` per task, plus jobs to look up the owner.
+3. `collect_task`: fetches a task and its sessions from Copilot. It writes the sessions, and queues session-log, workflow-run, user, and pull-request jobs.
+4. `collect_session_log`: fetches the session transcript from Copilot.
+5. `collect_workflow_run`: fetches the GitHub Actions workflow run from GitHub REST and queues user lookups.
+6. `collect_user_*`: looks up a user (GraphQL node id, minted id, login, or REST id).
+7. `collect_pull_request_*`: looks up a pull request (GraphQL global id, number+repo, minted id, or REST number+repo) and queues a timeline job.
+8. `collect_pull_request_timeline`: pages timeline events on GitHub REST, writes the events, and queues user lookups.
+
+Sessions do not have their own collect job, but are written when collecting a task.
+
+The pipeline is fully resumable, re-run `scripts/collect/run.py` to pick up where it left off. Re-run `export.py` to regenerate Parquet from the current state.
 
 ## Analysis examples
 
@@ -124,7 +184,7 @@ If you use AgentLogs in an academic publication, please cite this preprint:
 
 ```bibtex
 @misc{richards2026AgentLogsDatasetOpening,
-  title = {{AgentLogs: A Dataset for Opening the Black Box of GitHub's Cloud Agent}},
+  title = {{AgentLogs: A Dataset for Opening the Black Box of Cloud Agents on GitHub}},
   author = {Richards, Jonan and Horikawa, Kosei and Fan, Youmei and Kashiwa, Yutaro and Wessel, Mairieli},
   year = 2026,
   month = aug,

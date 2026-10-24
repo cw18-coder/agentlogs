@@ -41,7 +41,7 @@ class PullRequestAutoMergeData(TypedDict):
     reference=PullRequestTimelineReference,
 )
 class PullRequestTimelineEvent(TypedDict):
-    """One event from a collected pull request timeline."""
+    """One event from a pull request timeline."""
 
     pull_request: Annotated[
         PullRequestReference,
